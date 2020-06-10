@@ -185,6 +185,25 @@
         const offlineValue = DeviceStatus[DeviceStatus.OFFLINE]
     ```
 
+- [3.5](#no-enum-differences) Enum name is PascalCase and enum values UPPERCASE
+
+    > Why? If the enum definition order changes, the code will break
+
+    ```typescript
+    // bad
+        type DeviceStatus = {
+            online: "ONLINE",
+            offline: "OFFLINE",
+        }
+
+
+    // good
+        type DeviceStatus = {
+            ONLINE: "ONLINE",
+            OFFLINE: "OFFLINE",
+        }
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 # };
