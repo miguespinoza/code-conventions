@@ -8,18 +8,14 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   1. [Basic Rules](#basic-rules)
   1. [Naming](#naming)
-  1. [Functional Components](#functionalComponents)
-  1. [Class Components](#classComponents)
-  1. [Styles](#styles)
+  1. [Functional Components](#Functional-Components)
+  1. [Class Components](#class-Components)
+  1. [Context](#context)
 
 ## Basic Rules
 
   - Only include one React component per file.
-    - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
-  - Always use JSX syntax.
-  - Do not use `React.createElement` unless you’re initializing the app from a file that is not JSX.
-  - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
-
+## Folder structure
 ## Naming
 
   - **Extensions**: Use `.jsx` extension for React components. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
@@ -66,6 +62,81 @@ This style guide is mostly based on the standards that are currently prevalent i
 
     // good
     <MyComponent variant="fancy" />
+    ```
+
+  - **Component Methods Naming**: use "onGENERIC_EVENT_NAME" to name callbacks and "handleGENERIC_EVENT_NAME" to handle them.
+
+    > Why? People expect props like `style` and `className` to mean one specific thing. Varying this API for a subset of your app makes the code less readable and less maintainable, and may cause bugs.
+
+    ```jsx
+
+    // bad, My Component should not be aware that clicking a move shows the move details
+    <MyComponent onShowMoveDetails={this.handleMoveClicked} />
+
+    // good
+    <MyComponent onMoveClick={this.handleMoveClicked} />
+    ```
+
+
+**[⬆ back to top](#table-of-contents)**
+
+## Functional Components
+
+## Class Components
+- [2.1](#types) Use Arrow functions for component methods
+
+  >Why? Thanks to the lexical scoping, "this" will be the component, event if is called by its children
+
+    ```typescript
+    // bad
+        class Component {
+          handleMoveClick(){
+            this.showDetails();
+          }
+        }
+    // good
+        class Component {
+          handleMoveClick = () => {
+            this.showDetails();
+          }
+        }
+
+    ```
+
+- [2.1](#types) Don't use constructor to sync props with state
+
+  > Why? constructor is only invoked once, so any state you set will not be updated when the props change
+
+    ```typescript
+
+    ```
+
+- [2.1](#types) Don't use render methods
+
+  > Why? Render methods are a nice abstraction, but we already have a better one, React Components. Creating a react component instead of a render method is better because of all the react features we love.
+
+    ```typescript
+
+    // bad
+    class Component {
+          renderThing = () => {
+            return <div> thing </div>
+          }
+          render(){
+            return <div>
+              {this.renderThing()}
+            </div>
+          }
+        }
+
+    // good
+        class Component {
+          render(){
+            return <div>
+              <Thing/>
+            </div>
+          }
+        }
     ```
 
 
