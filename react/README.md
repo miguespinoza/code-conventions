@@ -138,6 +138,28 @@ This style guide is mostly based on the standards that are currently prevalent i
           }
         }
     ```
+## Child Components
+- [2.1](#types) Use Key into autogenerate child components
+
+  >Why? React dom use key to listen if some change has been done in the child
+
+    ```typescript
+    // bad
+         render(){
+            return <div>
+             {
+               [0,1,2].map((data)=> <Thing {...data}/>)
+             }
+            </div>
+          }
+    // good
+         render(){
+            return <div>
+             {
+               [0,1,2].map((data,index)=> <Thing key={index} {...data}/>)
+             }
+            </div>
+          }
 
 
 **[⬆ back to top](#table-of-contents)**

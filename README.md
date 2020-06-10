@@ -901,6 +901,23 @@
     }
     ```
 
+## Closure 
+  <a name="avoid--Closure"></a><a name="24.1"></a>
+  - [24.1](#avoid--Closure) Avoid closure in functions
+
+
+    ```javascript
+   const someFilter = () =>{
+    return ["pikachu","mario","peach"].filter((x)=> x === "peach");
+   }
+
+    // good
+  const filterValue = (value) => value === "peach";  
+
+  const someFilter = () => {
+    return ["pikachu","mario","peach"].filter(filterValue);
+   }
+
 
 **[⬆ back to top](#table-of-contents)**
 

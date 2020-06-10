@@ -203,7 +203,19 @@
             OFFLINE: "OFFLINE",
         }
     ```
+- [3.5](#no-typed-values) Use typed values in return functions and variables
 
+    > Why? avoid to mutate the return value
+
+    ```typescript
+    // bad
+       const someString = () => "";
+       const someVariableString = "";
+
+    // good
+       const someString:string => "";
+       const someVariableString:string = "";
+    ```
 **[⬆ back to top](#table-of-contents)**
 
 # };
