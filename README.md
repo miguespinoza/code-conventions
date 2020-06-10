@@ -436,6 +436,18 @@
     export default function foo() {}
     ```
 
+  <a name="modules--prefer-default-export"></a>
+  - [10.6](#modules--prefer-default-export) File name must be exactly the same as the default export
+    > Why? Much better code navigation and consistency;
+
+    ```javascript
+    // bad
+    export function foo() {}
+
+    // good
+    export default function foo() {}
+    ```
+
 
 **[⬆ back to top](#table-of-contents)**
 

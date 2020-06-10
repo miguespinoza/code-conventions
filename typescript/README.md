@@ -110,20 +110,18 @@
 
     ```typescript
     // bad
-        type DeviceStatus = {
+        type DeviceStatus =  "ONLINE" | "OFFLINE",
+
+    // good
+        enum DeviceStatus = {
             ONLINE: "ONLINE",
             OFFLINE: "OFFLINE",
         }
-    // good
-        enum DeviceStatus = {
-            ONLINE,
-            OFFLINE,
-        }
     ```
 
-- [3.1](#no-display-enum) Never Display use an enum for display purposes.
+- [3.2](#no-display-enum) Never use an enum directly for display purposes.
 
-    > Why? Enums are implementation details, their name is subject to change during refactors, Using them for presentation would break
+    > Why? Enums are implementation details, their name is subject to change during refactors
 
     ```typescript
     // bad
@@ -132,23 +130,59 @@
         <p> {enumToString(DeviceStatus.AUTOMATIC)} </p>
     ```
 
-- [3.1](#no-enum-differences) Never assign an enum value different than the enum name
+- [3.3](#no-enum-differences) Never use a numeric value enum
 
-    Yes enum values are useful for debugging
-
-    > Why? Makes it very confusing
+    > Why? numeric enums are very hard to debug and if the definition order changes things will break.
 
     ```typescript
     // bad
         type DeviceStatus = {
-            ONLINE: "Online",
-            OFFLINE: "Out_Of_Service",
+            ONLINE,
+            OFFLINE,
         }
     // good
         type DeviceStatus = {
             ONLINE: "ONLINE",
             OFFLINE: "OFFLINE",
         }
+    ```
+
+- [3.4](#no-enum-differences) Never assign an enum value different than the enum name
+
+    > Why? It is going to be very confusing
+
+    ```typescript
+    // bad
+        type DeviceStatus = {
+            ONLINE: "offline",
+            OFFLINE: "online",
+        }
+    // good
+        type DeviceStatus = {
+            ONLINE: "ONLINE",
+            OFFLINE: "OFFLINE",
+        }
+    ```
+
+- [3.5](#no-enum-differences) Never index an enum by its numeric value
+
+    > Why? If the enum definition order changes, the code will break
+
+    ```typescript
+    // bad
+        type DeviceStatus = {
+            ONLINE,
+            OFFLINE,
+        }
+        const offlineValue = DeviceStatus[1]
+
+
+    // good
+        type DeviceStatus = {
+            ONLINE,
+            OFFLINE,
+        }
+        const offlineValue = DeviceStatus[DeviceStatus.OFFLINE]
     ```
 
 **[⬆ back to top](#table-of-contents)**
