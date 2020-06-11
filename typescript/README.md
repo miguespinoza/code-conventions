@@ -2,37 +2,20 @@
 
 *A mostly reasonable approach to Typescript*
 
-## All rules from the javascript guide apply for typescript
+> ⚠ All rules from the [javascript guide](/) apply for typescript
 
 ## Table of Contents
-
+### TypeScript specific
   1. [Avoid use of any](#avoid-any)
   1. [Use Types to describe shape](#types)
   1. [Use Interfaces to describe behavior](#objects)
   1. [Prefer Optional Chaining Operator](#prefer-optional-chaining)
   1. [Prefer Nullish Coalescing](#prefer-nullish)
   1. [Enums](#enums)
-  1. [@ts-ignore](#ts-ignore)
-  1. [Arrow Functions](#arrow-functions)
-  1. [Classes & Constructors](#classes--constructors)
-  1. [Modules](#modules)
-  1. [Iterators and Generators](#iterators-and-generators)
-  1. [Properties](#properties)
-  1. [Variables](#variables)
-  1. [Comparison Operators & Equality](#comparison-operators--equality)
-  1. [Blocks](#blocks)
-  1. [Control Statements](#control-statements)
-  1. [Naming Conventions](#naming-conventions)
-  1. [Accessors](#accessors)
-  1. [Testing](#testing)
-  1. [Performance](#performance)
-  1. [Resources](#resources)
-  1. [Contributors](#contributors)
-  1. [License](#license)
+
 
 ## Avoid use of any
-
-<a name="references--"></a><a name=""></a>
+<a name="avoid-any"></a><a name="1.1"></a>
   - [1.1](#avoid-any) Any should only be used for external libraries that do not have types definitions, 
 
     > Why? Typescript is a great tool, using any defeats the purpose of using it.
