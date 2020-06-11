@@ -213,7 +213,7 @@
        const someVariableString = "";
 
     // good
-       const someString:string => "";
+       const someString:string = () => "";
        const someVariableString:string = "";
     ```
 **[⬆ back to top](#table-of-contents)**
