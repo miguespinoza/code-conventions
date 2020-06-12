@@ -1,8 +1,6 @@
-# Airbnb React/JSX Style Guide
+# React/JSX Style Guide
 
 *A mostly reasonable approach to React and JSX*
-
-This style guide is mostly based on the standards that are currently prevalent in JavaScript, although some conventions (i.e async/await or static class fields) may still be included or prohibited on a case-by-case basis. Currently, anything prior to stage 3 is not included nor recommended in this guide.
 
 ## Table of Contents
 
@@ -15,7 +13,62 @@ This style guide is mostly based on the standards that are currently prevalent i
 ## Basic Rules
 
   - Only include one React component per file.
+  - Watch closely your imports, you might be importing a component that is not meant to be reused
+
 ## Folder structure
+
+  We must differentiate between <b>Momentum UI Components</b> and <b>React Components</b>. Both use react to render DOM however: 
+  - <b>Momentum Components</b> [Docs](http://10.41.60.122/master/framework/docs/index.html#/Framework/Composition) Use a Model View View Model architecture, and are rendered by the framework using the catalog config.
+  - <b>React Components</b> [Docs](https://en.reactjs.org/docs/components-and-props.html): Are the traditional react components, You can leverage all the react features (hooks, context, etc.) to build your components. But have in mind they can't be rendered directly by the framework, if your component needs to be rendered by the `shell` or the framework it must be a <b>Momentum Component.</b>
+
+
+  ### General Structure
+  Applications will follow the general momentum-ui folder structure documented [here](http://10.41.60.122/master/framework/docs/index.html), 
+  
+  - <b>Momentum Components</b>: will be placed inside `src/catalog`
+  - <b>React Components</b>: that are reusable across the whole application will be placed inside `src/partials`
+  - <b>React Components</b>: That are only meant to be used inside a certain part of the app will be placed in the `partials` folder of the bounding component.
+
+  ### Services
+
+  - Services Are global entities, They can be used by all the components in the application.
+  - Services are placed in `src/services`
+  - Services must not have presentation code e.g. Show a success notification. This is a responsibility of the component that is using the service.
+  - Services have this structure:
+  ```
+      ServiceName
+      │   ServiceName.spec.ts
+      |   DataTypes.ts
+      │   ServiceName.ts    
+  ```  
+
+  ### Component Structure
+
+  A React Component has the following file structure:
+  ```
+      ComponentName
+      │   ComponentName.spec.tsx
+      |   ComponentName.module.scss
+      │   ComponentName.tsx    
+      └───partials
+      │   │   ...
+  ```
+  - A parent folder with the same name as the component,
+  - The component file, must have the same name as the component, and export default the component class or function
+  - SASS styles file, All the classes used by this component must be defined in this file, i.e. no import from other style files.
+  - Unit Test file
+
+  #### Partials Folder
+
+  A component may be divided in to sub components (thats the beauty of React).
+
+  When the sub component is generic enough to be used in the whole application it must be placed in the global partials folder `src/partials`
+  
+  On the contrary when the sub components are not suited to be reused outside of this component. (Maybe it doesn't make sense or they require access to a context). They must be placed on the component partials folder.
+ 
+  <b>A component can only use components from `src/partials` and its own `./partials`.</b>
+
+
 ## Naming
 
   - **Extensions**: Use `.jsx` extension for React components. eslint: [`react/jsx-filename-extension`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)
@@ -108,7 +161,22 @@ This style guide is mostly based on the standards that are currently prevalent i
   > Why? constructor is only invoked once, so any state you set will not be updated when the props change
 
     ```typescript
-
+    class Button extends React.Component {
+      constructor(){
+        this.state = {
+          color: this.props.color
+        };
+      }
+      
+      render() {
+        const { color } = this.state; // 🔴 `color` is stale!
+        return (
+          <button className={'Button-' + color}>
+            {this.props.children}
+          </button>
+        );
+      }
+    }
     ```
 
 - [2.1](#types) Don't use render methods

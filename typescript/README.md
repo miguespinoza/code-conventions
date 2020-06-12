@@ -2,33 +2,16 @@
 
 *A mostly reasonable approach to Typescript*
 
-## All rules from the javascript guide apply for typescript
+## All rules from the typescript guide apply for typescript
 
 ## Table of Contents
 
-  1. [Avoid use of any](#avoid-any)
-  1. [Use Types to describe shape](#types)
+  1. [Avoid use of any](#avoid-use-of-any)
+  1. [Use Type Aliases to describe shape](#use-type-aliases-to-describe-shape)
   1. [Use Interfaces to describe behavior](#objects)
-  1. [Prefer Optional Chaining Operator](#prefer-optional-chaining)
-  1. [Prefer Nullish Coalescing](#prefer-nullish)
+  1. [Prefer Optional Chaining Operator](#prefer-optional-chaining-operator)
+  1. [Prefer Nullish Coalescing](#prefer-nullish-coalescing)
   1. [Enums](#enums)
-  1. [@ts-ignore](#ts-ignore)
-  1. [Arrow Functions](#arrow-functions)
-  1. [Classes & Constructors](#classes--constructors)
-  1. [Modules](#modules)
-  1. [Iterators and Generators](#iterators-and-generators)
-  1. [Properties](#properties)
-  1. [Variables](#variables)
-  1. [Comparison Operators & Equality](#comparison-operators--equality)
-  1. [Blocks](#blocks)
-  1. [Control Statements](#control-statements)
-  1. [Naming Conventions](#naming-conventions)
-  1. [Accessors](#accessors)
-  1. [Testing](#testing)
-  1. [Performance](#performance)
-  1. [Resources](#resources)
-  1. [Contributors](#contributors)
-  1. [License](#license)
 
 ## Avoid use of any
 
@@ -37,7 +20,7 @@
 
     > Why? Typescript is a great tool, using any defeats the purpose of using it.
 
-    ```javascript
+    ```typescript
     // bad
         type ComponentProps = {
             content: any;
@@ -48,20 +31,6 @@
         }
 
     ```
-
-  <a name="references--"></a><a name=""></a>
-  - [2.1](#references--prefer-const) 
-
-    > Why? 
-
-    ```javascript
-    // bad
-
-    // good
-
-    ```
-
-
 
 ## Use Type Aliases to describe shape
 - [2.1](#types) Types aliases are meant to describe the shape of things, use them to describe things like prop  types, return values, as long as the thing you are describing is not behavior based.
@@ -103,6 +72,25 @@
 
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
+## Prefer Optional Chaining Operator
+    ```typescript
+        // bad
+            const a = param?.deep?.object?.property
+        // good
+            const a = param && param.deep && param.deep.object && param.deep.object.property;
+    ```
+**[⬆ back to top](#table-of-contents)**
+
+## Prefer Nullish Coalescing
+
+    ```typescript
+        // bad
+            const a = param != null ? param : "default"
+        // good
+            const a = param ?? "default"
+    ```
 **[⬆ back to top](#table-of-contents)**
 
 ## Enums
