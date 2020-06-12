@@ -6,11 +6,10 @@
   - [Typescript](typescript/)
   - [React](react/)
   - [Styles](styles/)
+  - [Code Format](codeFormat/)
 
 ## Table of Contents
 
-  1. [Types](#types)
-  1. [References](#references)
   1. [Objects](#objects)
   1. [Arrays](#arrays)
   1. [Destructuring](#destructuring)
@@ -19,10 +18,8 @@
   1. [Arrow Functions](#arrow-functions)
   1. [Classes & Constructors](#classes--constructors)
   1. [Modules](#modules)
-  1. [Iterators and Generators](#iterators-and-generators)
   1. [Properties](#properties)
   1. [Variables](#variables)
-  1. [Comparison Operators & Equality](#comparison-operators--equality)
   1. [Blocks](#blocks)
   1. [Control Statements](#control-statements)
   1. [Naming Conventions](#naming-conventions)
@@ -32,42 +29,6 @@
   1. [Resources](#resources)
   1. [Contributors](#contributors)
   1. [License](#license)
-
-## References
-
-  <a name="references--prefer-const"></a><a name="2.1"></a>
-  - [2.1](#references--prefer-const) Use `const` for all of your references; avoid using `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
-
-    > Why? This ensures that you can’t reassign your references, which can lead to bugs and difficult to comprehend code.
-
-    ```javascript
-    // bad
-    var a = 1;
-    var b = 2;
-
-    // good
-    const a = 1;
-    const b = 2;
-    ```
-
-  <a name="references--disallow-var"></a><a name="2.2"></a>
-  - [2.2](#references--disallow-var) If you must reassign references, use `let` instead of `var`. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
-
-    > Why? `let` is block-scoped rather than function-scoped like `var`.
-
-    ```javascript
-    // bad
-    var count = 1;
-    if (true) {
-      count += 1;
-    }
-
-    // good, use the let.
-    let count = 1;
-    if (true) {
-      count += 1;
-    }
-    ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -451,9 +412,6 @@
 
 **[⬆ back to top](#table-of-contents)**
 
-## Iterators and Generators
-
-**[⬆ back to top](#table-of-contents)**
 
 ## Properties
 
@@ -494,8 +452,8 @@
 ## Variables
 
   <a name="variables--const"></a><a name="13.1"></a>
-  - [13.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
-
+  - [13.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const) [`no-var`](https://eslint.org/docs/rules/no-var.html)
+ 
     ```javascript
     // bad
     superPower = new SuperPower();
@@ -901,6 +859,23 @@
     }
     ```
 
+## Closure 
+  - [24.1](#avoid--Closure) Avoid closure in functions
+
+
+    ```javascript
+    /// bad
+     const someFilter = () =>{
+      return ["pikachu","mario","peach"].filter((x)=> x === "peach");
+     }
+
+    // good
+    const filterValue = (value) => value === "peach";  
+
+    const someFilter = () => {
+      return ["pikachu","mario","peach"].filter(filterValue);
+   }
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
