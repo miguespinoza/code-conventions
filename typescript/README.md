@@ -2,20 +2,21 @@
 
 *A mostly reasonable approach to Typescript*
 
-## All rules from the typescript guide apply for typescript
+> ⚠ All rules from the [javascript guide](/) apply for typescript
 
 ## Table of Contents
-
+### TypeScript specific
   1. [Avoid use of any](#avoid-use-of-any)
-  1. [Use Type Aliases to describe shape](#use-type-aliases-to-describe-shape)
+  1. [Use Types to describe shape](#use-type-aliases-to-describe-shape)
+
   1. [Use Interfaces to describe behavior](#objects)
   1. [Prefer Optional Chaining Operator](#prefer-optional-chaining-operator)
   1. [Prefer Nullish Coalescing](#prefer-nullish-coalescing)
   1. [Enums](#enums)
 
-## Avoid use of any
 
-<a name="references--"></a><a name=""></a>
+## Avoid use of any
+<a name="avoid-any"></a><a name="1.1"></a>
   - [1.1](#avoid-any) Any should only be used for external libraries that do not have types definitions, 
 
     > Why? Typescript is a great tool, using any defeats the purpose of using it.
