@@ -5,7 +5,7 @@
 ## Other Style Guides
   - [Typescript](typescript/)
   - [React](react/)
-  - [Styles](styles/)
+  - [Styles](react/styles/)
   - [Code Format](codeFormat/)
 
 ## Table of Contents
@@ -25,27 +25,10 @@
   1. [Naming Conventions](#naming-conventions)
   1. [Accessors](#accessors)
   1. [Testing](#testing)
-  1. [Performance](#performance)
-  1. [Resources](#resources)
-  1. [Contributors](#contributors)
-  1. [License](#license)
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Objects
-
-  <a name="objects--no-new"></a><a name="3.1"></a>
-  - [3.1](#objects--no-new) Use the literal syntax for object creation. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
-
-    ```javascript
-    // bad
-    const item = new Object();
-
-    // good
-    const item = {};
-    ```
-
-
 
   <a name="objects--quoted-props"></a><a name="3.8"></a>
   - [3.6](#objects--quoted-props) Only quote properties that are invalid identifiers. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
@@ -92,17 +75,6 @@
 
 ## Arrays
 
-  <a name="arrays--literals"></a><a name="4.1"></a>
-  - [4.1](#arrays--literals) Use the literal syntax for array creation. eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor.html)
-
-    ```javascript
-    // bad
-    const items = new Array();
-
-    // good
-    const items = [];
-    ```
-
   <a name="arrays--push"></a><a name="4.2"></a>
   - [4.2](#arrays--push) Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) instead of direct assignment to add items to an array.
 
@@ -134,21 +106,28 @@
     ```
 
   <a name="es6-array-spreads"></a><a name="4.4"></a>
-  - [4.3](#prefer-filter) Prefer functional methods (map, filter, reduce...) over for loops.
+  - [4.3](#prefer-map) Use map to transform an array
 
-    > Why? They do only one thing. Which translates to "No Side effects" and immutability. Those things will save us form weird bugs in te future.
+    > Why? easier to understand what the code is doing
 
     ```javascript
     // bad
-    const newArray = [];
+    const newArray = [];  
 
-    for(let a of oldArray){
+    for(let i = 0; i < oldArray.length; i++){
       newArray.push(transformFunction(a));
     }
 
     // good
     const newArray = oldArray.map(transformFunction);
+    ```
 
+    <a name="es6-array-spreads"></a><a name="4.4"></a>
+  - [4.3](#prefer-filter) Use filter to filter an array
+
+    > Why? easier to understand what the code is doing
+
+    ```javascript
     // bad
     const filteredArray = [];
     for(let a of oldArray){
@@ -158,7 +137,24 @@
     }
 
     // good
-    const filteredArray = oldArray.filter(filteredArray);
+    const filteredArray = oldArray.filter(filterFunction);
+    ```
+
+
+  <a name="es6-array-spreads"></a><a name="4.4"></a>
+  - [4.3](#prefer-foreach) Use forEach to traverse an array, .
+
+    > Why? easier to understand what the code is doing and avoid index typos
+
+    ```javascript
+    // bad
+
+    for(let i = 0; i < array.length; i++){
+      let value = array[i]
+    }
+
+    // good
+    const newArray = array.forEach((value) => {})
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -256,6 +252,33 @@
 **[⬆ back to top](#table-of-contents)**
 
 ## Functions
+  <a name="es6-default-parameters"></a><a name="7.7"></a>
+  - [7.7](#es6-default-parameters) Functions name must do only one thing and include a verb in the name that indicates what they do.
+
+    ```javascript
+    // really bad
+    function response(opts) {
+      // No! We shouldn’t mutate function arguments.
+      // Double bad: if opts is falsy it'll be set to an object which may
+      // be what you want but it can introduce subtle bugs.
+      opts = opts || {};
+      // ...
+    }
+
+    // still bad
+    function handleThings(opts) {
+      if (opts === void 0) {
+        opts = {};
+      }
+      // ...
+    }
+
+    // good
+    function handleThings(opts = {}) {
+      // ...
+    }
+    ```
+
   <a name="es6-default-parameters"></a><a name="7.7"></a>
   - [7.7](#es6-default-parameters) Use default parameter syntax rather than mutating function arguments.
 
@@ -407,6 +430,19 @@
 
     // good
     export default function foo() {}
+    ```
+  <a name="modules--prefer-absolute-path"></a>
+  - [10.6](#modules--prefer-absolute-path) Use Absolute path to import modules
+    > Why? Following `../../../` becomes hard pretty quickly.
+
+    This requires configuration in your build tools, for typescript add `"baseUrl": "./src"` to your `tsconfig.json` file
+
+    ```javascript
+    // bad
+    import service from "../../../../../../../services/service"
+
+    // good
+    import service from "services/service"  
     ```
 
 
@@ -887,73 +923,6 @@
     - Be cautious about stubs and mocks - they can make your tests more brittle.
     - 100% test coverage is a good goal to strive for, even if it’s not always practical to reach it.
     - Whenever you fix a bug, _write a regression test_. A bug fixed without a regression test is almost certainly going to break again in the future.
-
-**[⬆ back to top](#table-of-contents)**
-
-## Performance
-
-  - [On Layout & Web Performance](https://www.kellegous.com/j/2013/01/26/layout-performance/)
-  - [String vs Array Concat](https://jsperf.com/string-vs-array-concat/2)
-  - [Try/Catch Cost In a Loop](https://jsperf.com/try-catch-in-loop-cost/12)
-  - [Bang Function](https://jsperf.com/bang-function)
-  - [Are JavaScript functions like `map()`, `reduce()`, and `filter()` optimized for traversing arrays?](https://www.quora.com/JavaScript-programming-language-Are-Javascript-functions-like-map-reduce-and-filter-already-optimized-for-traversing-array/answer/Quildreen-Motta)
-  - Loading...
-
-**[⬆ back to top](#table-of-contents)**
-
-## Resources
-
-**Learning ES6+**
-
-  - [Latest ECMA spec](https://tc39.github.io/ecma262/)
-  - [ExploringJS](http://exploringjs.com/)
-  - [ES6 Compatibility Table](https://kangax.github.io/compat-table/es6/)
-  - [Comprehensive Overview of ES6 Features](http://es6-features.org/)
-
-**Read This**
-
-  - [Standard ECMA-262](http://www.ecma-international.org/ecma-262/6.0/index.html)
-
-**Tools**
-
-  - Code Style Linters
-    - [ESlint](https://eslint.org/) - [Airbnb Style .eslintrc](https://github.com/airbnb/javascript/blob/master/linters/.eslintrc)
-    - [JSHint](http://jshint.com/) - [Airbnb Style .jshintrc](https://github.com/airbnb/javascript/blob/master/linters/.jshintrc)
-  - Neutrino Preset - [@neutrinojs/airbnb](https://neutrinojs.org/packages/airbnb/)
-
-**Other Style Guides**
-
-  - [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)
-  - [Google JavaScript Style Guide (Old)](https://google.github.io/styleguide/javascriptguide.xml)
-  - [jQuery Core Style Guidelines](https://contribute.jquery.org/style-guide/js/)
-  - [Principles of Writing Consistent, Idiomatic JavaScript](https://github.com/rwaldron/idiomatic.js)
-  - [StandardJS](https://standardjs.com)
-
-
-## License
-
-(The MIT License)
-
-Copyright (c) 2012 Airbnb
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 **[⬆ back to top](#table-of-contents)**
 

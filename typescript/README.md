@@ -7,15 +7,16 @@
 ## Table of Contents
 
   1. [Avoid use of any](#avoid-use-of-any)
+  1. [Use nullable operator for optional parameters](#use-nullable-operator-for-optional-parameters)
   1. [Use Type Aliases to describe shape](#use-type-aliases-to-describe-shape)
-  1. [Use Interfaces to describe behavior](#objects)
+  1. [Use Interfaces to describe behavior](#use-interfaces-to-describe-behavior)
   1. [Prefer Optional Chaining Operator](#prefer-optional-chaining-operator)
   1. [Prefer Nullish Coalescing](#prefer-nullish-coalescing)
   1. [Enums](#enums)
 
 ## Avoid use of any
 
-<a name="references--"></a><a name=""></a>
+
   - [1.1](#avoid-any) Any should only be used for external libraries that do not have types definitions, 
 
     > Why? Typescript is a great tool, using any defeats the purpose of using it.
@@ -31,6 +32,22 @@
         }
 
     ```
+
+## Use nullable operator for optional parameters
+    > It is better for readability
+
+    ```typescript
+    // bad
+        type ComponentProps = {
+            id: string | undefined;
+        }
+    // good
+        type ComponentProps = {
+            id?: string;
+        }
+
+    ```
+
 
 ## Use Type Aliases to describe shape
 - [2.1](#types) Types aliases are meant to describe the shape of things, use them to describe things like prop  types, return values, as long as the thing you are describing is not behavior based.
