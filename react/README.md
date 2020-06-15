@@ -6,7 +6,8 @@
 
   1. [Basic Rules](#basic-rules)
   1. [Naming](#naming)
-  1. [Functional Components](#Functional-Components)
+  1. [Typescript](#typescript)
+  1. [Functional Components](#functional-components)
   1. [Class Components](#class-Components)
   1. [Context](#context)
 
@@ -133,10 +134,78 @@
 
 **[⬆ back to top](#table-of-contents)**
 
+
+
+
+## Typescript
+  This section describes the specific rules and types for react and typescript
+- Useful React Prop Type Examples
+```typescript
+  type UsefulProps = {
+    /** Accepts any react node */
+    children: React.ReactNode, 
+    /** function that doesn't take or return anything (VERY COMMON) */
+    onClick: () => void;
+    /** function with named prop (VERY COMMON) */
+    onChange: (id: number) => void;
+    /** alternative function type syntax that takes an event (VERY COMMON) */
+    onClick(event: React.MouseEvent<HTMLButtonElement>): void;
+    /** an optional prop (VERY COMMON!) */
+    optional?: OptionalType;
+  }
+```
+- Check full guide [here](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet/blob/master/README.md#basic-cheatsheet-table-of-contents) 
+
 ## Functional Components
+- Declare functional components with `React.FC` or `React.FunctionComponent`
+  > Why? React.FC is explicit about the return type, while using a normal function declaration is implicit.
+
+  ```typescript
+    type ComponentProps = {
+      message: string;
+    }
+
+    // Bad
+    const App = ({ message }: AppProps) => <div>{message}</div>;
+
+    //Good
+    const Component: React.FunctionComponent<ComponentProps> = ({ message }) => (
+      <div>{message}</div>
+    );
+
+    //Best
+    const Component: React.FC<ComponentProps> = ({ message }) => (
+      <div>{message}</div>
+    );
+  ```
 
 ## Class Components
-- [2.1](#types) Use Arrow functions for component methods
+
+- Define Props and State with the generic  `React.Component<props, state>`
+  ```typescript
+      type MyProps = {
+      // using `interface` is also ok
+      message: string;
+    };
+    type MyState = {
+      count: number; // like this
+    };
+    class App extends React.Component<MyProps, MyState> {
+      state: MyState = {
+        // optional second annotation for better type inference
+        count: 0,
+      };
+      render() {
+        return (
+          <div>
+            {this.props.message} {this.state.count}
+          </div>
+        );
+      }
+    }
+  ```
+
+- Use Arrow functions for component methods
 
   >Why? Thanks to the lexical scoping, "this" will be the component, event if is called by its children
 
@@ -156,7 +225,7 @@
 
     ```
 
-- [2.1](#types) Don't use constructor to sync props with state
+- Don't use constructor to sync props with state
 
   > Why? constructor is only invoked once, so any state you set will not be updated when the props change
 
@@ -179,7 +248,7 @@
     }
     ```
 
-- [2.1](#types) Don't use render methods
+- Don't use render methods
 
   > Why? Render methods are a nice abstraction, but we already have a better one, React Components. Creating a react component instead of a render method is better because of all the react features we love.
 
@@ -207,7 +276,7 @@
         }
     ```
 ## Child Components
-- [2.1](#types) Use Key into autogenerate child components
+- Use Key into autogenerate child components
 
   >Why? React dom use key to listen if some change has been done in the child
 
