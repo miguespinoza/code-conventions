@@ -2,6 +2,13 @@
 
 *A mostly reasonable approach to React and JSX*
 
+
+This style guide is mostly based on the standards that are currently prevalent in JavaScript, although some conventions (i.e async/await or static class fields) may still be included or prohibited on a case-by-case basis. Currently, anything prior to stage 3 is not included nor recommended in this guide.
+
+## Styling Components
+[This guide](styles) talks about Styling Components in React applications
+
+
 ## Table of Contents
 
   1. [Basic Rules](#basic-rules)
@@ -180,6 +187,7 @@
   ```
 
 ## Class Components
+⚠ We encourage the use of [Functional Components](#functional-components) over Class components.
 
 - Define Props and State with the generic  `React.Component<props, state>`
   ```typescript
