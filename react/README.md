@@ -21,7 +21,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 ## Basic Rules
 
   - Only include one React component per file.
-  - Watch closely your imports, you might be importing a component that is not meant to be reused
+  - Watch closely your imports, you might be importing a component that is not meant to be reused. See more in the Partial Folder section
 
 ## Folder structure
 
@@ -67,8 +67,8 @@ This style guide is mostly based on the standards that are currently prevalent i
   - Unit Test file
 
   #### Partials Folder
-
-  A component may be divided in to sub components (thats the beauty of React).
+  <a name="#partials-folder"></a>
+  A component may be divided in to sub components (that's the beauty of React).
 
   When the sub component is generic enough to be used in the whole application it must be placed in the global partials folder `src/partials`
   
@@ -189,17 +189,18 @@ This style guide is mostly based on the standards that are currently prevalent i
 ## Class Components
 ⚠ We encourage the use of [Functional Components](#functional-components) over Class components.
 
-- Define Props and State with the generic  `React.Component<props, state>`
+- Define Props and State with the generic  `React.Component<props, state>`. Generic names are composed by the component name and the Props or State word like this:  "COMPONENT_NAMEProps" and "COMPONENT_NAMEState"
+
   ```typescript
-      type MyProps = {
+    type AppProps = {
       // using `interface` is also ok
       message: string;
     };
-    type MyState = {
+    type AppState = {
       count: number; // like this
     };
-    class App extends React.Component<MyProps, MyState> {
-      state: MyState = {
+    class App extends React.Component<AppProps, AppState> {
+      state: AppState = {
         // optional second annotation for better type inference
         count: 0,
       };
@@ -305,6 +306,84 @@ This style guide is mostly based on the standards that are currently prevalent i
              }
             </div>
           }
+    ```
+
+## Context
+- Use the new Context API over the legacy deprecated one
+
+  >Why? The Legacy API will break in future versions of react see [here:](https://es.reactjs.org/docs/legacy-context.html)
+
+    ```typescript
+    // bad
+    class App extends React.Component<> {
+      contextType: Context;
+      constructor(props, context){
+
+      }
+      render() {
+        return (
+          <div>
+            {this.props.message} {this.state.count}
+          </div>
+        );
+      }
+    }
+    // good
+    class App extends React.Component<> {
+      render() {
+        return (
+          <Context.Consumer>
+          {(value) => {
+            <div>
+              {this.props.message} {this.state.count}
+            </div>
+          }}
+          </Context.Consumer>
+        );
+      }
+    }
+    ```
+
+- <b>mobx</b>, if you need to use Mobx observables and Context, <b>Wrap context render result in an `<Observer>` component</b>
+
+  >Why? Mobx observables only work within an observer, and the context render prop is not one.
+
+    ```typescript
+    // bad
+    class App extends React.Component<> {
+      @observable
+      name =  "name"
+      render() {
+        return (
+          <Context.Consumer>
+          {(value) => {
+            <div>
+              {this.name}
+            </div>
+          }}
+          </Context.Consumer>
+        );
+      }
+    }
+    // good
+    class App extends React.Component<> {
+      render() {
+        return (
+          <Context.Consumer>
+          {(value) => {
+            <Observer>
+              {() => (
+                <div>
+                  {this.name}
+                </div>
+              )}
+            </Observer>
+          }}
+          </Context.Consumer>
+        );
+      }
+    }
+    ```
 
 
 **[⬆ back to top](#table-of-contents)**

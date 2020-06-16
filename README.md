@@ -74,20 +74,6 @@
 **[⬆ back to top](#table-of-contents)**
 
 ## Arrays
-
-  <a name="arrays--push"></a><a name="4.2"></a>
-  - [4.2](#arrays--push) Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) instead of direct assignment to add items to an array.
-
-    ```javascript
-    const someStack = [];
-
-    // bad
-    someStack[someStack.length] = 'abracadabra';
-
-    // good
-    someStack.push('abracadabra');
-    ```
-
   <a name="es6-array-spreads"></a><a name="4.3"></a>
   - [4.3](#es6-array-spreads) Use array spreads `...` to copy arrays.
 
@@ -204,21 +190,6 @@
 **[⬆ back to top](#table-of-contents)**
 
 ## Strings
-
-  <a name="strings--quotes"></a><a name="6.1"></a>
-  - [6.1](#strings--quotes) Use single quotes `''` for strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
-
-    ```javascript
-    // bad
-    const name = "Capt. Janeway";
-
-    // bad - template literals should contain interpolation or newlines
-    const name = `Capt. Janeway`;
-
-    // good
-    const name = 'Capt. Janeway';
-    ```
-
   <a name="es6-template-literals"></a><a name="6.4"></a>
   - [6.3](#es6-template-literals) Avoid String Concatenation, use template. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
 
@@ -230,25 +201,11 @@
       return 'How are you, ' + name + '?';
     }
 
-    // bad
-    function sayHi(name) {
-      return ['How are you, ', name, '?'].join();
-    }
-
-    // bad
-    function sayHi(name) {
-      return `How are you, ${ name }?`;
-    }
-
     // good
     function sayHi(name) {
       return `How are you, ${name}?`;
     }
     ```
-
-  <a name="strings--eval"></a><a name="6.5"></a>
-  - [6.4](#strings--eval) Never use `eval()` on a string, it opens too many vulnerabilities. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
-
 **[⬆ back to top](#table-of-contents)**
 
 ## Functions
@@ -432,7 +389,7 @@
     export default function foo() {}
     ```
   <a name="modules--prefer-absolute-path"></a>
-  - [10.6](#modules--prefer-absolute-path) Use Absolute path to import modules
+  - [10.6](#modules--prefer-absolute-path) Use Absolute path to import modules when they are higher in the file structure
     > Why? Following `../../../` becomes hard pretty quickly.
 
     This requires configuration in your build tools, for typescript add `"baseUrl": "./src"` to your `tsconfig.json` file
@@ -443,6 +400,12 @@
 
     // good
     import service from "services/service"  
+
+    // good
+    import styles from "./styles.css"  
+
+    // good
+    import Component from "./partials/Component" 
     ```
 
 
@@ -748,21 +711,6 @@
 
 ## Naming Conventions
 
-  <a name="naming--descriptive"></a><a name="22.1"></a>
-  - [23.1](#naming--descriptive) Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
-
-    ```javascript
-    // bad
-    function q() {
-      // ...
-    }
-
-    // good
-    function query() {
-      // ...
-    }
-    ```
-
   <a name="naming--camelCase"></a><a name="22.2"></a>
   - [23.2](#naming--camelCase) Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
@@ -806,36 +754,11 @@
   - [23.6](#naming--filename-matches-export) A base filename should exactly match the name of its default export.
 
     ```javascript
-    // file 1 contents
+    // file CheckBox.js contents
     class CheckBox {
       // ...
     }
     export default CheckBox;
-
-    // file 2 contents
-    export default function fortyTwo() { return 42; }
-
-    // file 3 contents
-    export default function insideDirectory() {}
-
-    // in some other file
-    // bad
-    import CheckBox from './checkBox'; // PascalCase import/export, camelCase filename
-    import FortyTwo from './FortyTwo'; // PascalCase import/filename, camelCase export
-    import InsideDirectory from './InsideDirectory'; // PascalCase import/filename, camelCase export
-
-    // bad
-    import CheckBox from './check_box'; // PascalCase import/export, snake_case filename
-    import forty_two from './forty_two'; // snake_case import/filename, camelCase export
-    import inside_directory from './inside_directory'; // snake_case import, camelCase export
-    import index from './inside_directory/index'; // requiring the index file explicitly
-    import insideDirectory from './insideDirectory/index'; // requiring the index file explicitly
-
-    // good
-    import CheckBox from './CheckBox'; // PascalCase export/import/filename
-    import fortyTwo from './fortyTwo'; // camelCase export/import/filename
-    import insideDirectory from './insideDirectory'; // camelCase export/import/directory name/implicit "index"
-    // ^ supports both insideDirectory.js and insideDirectory/index.js
     ```
 
   <a name="naming--camelCase-default-export"></a><a name="22.7"></a>
@@ -853,47 +776,15 @@
   - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
 
     ```javascript
-    const AirbnbStyleGuide = {
+    const HtsStyleGuide = {
       es6: {
       },
     };
 
-    export default AirbnbStyleGuide;
+    export default HtsStyleGuide;
     ```
 
 **[⬆ back to top](#table-of-contents)**
-
-## Accessors
-
-  <a name="accessors--not-required"></a><a name="23.1"></a>
-  - [24.1](#accessors--not-required) Accessor functions for properties are not required.
-
-  <a name="accessors--no-getters-setters"></a><a name="23.2"></a>
-  - [24.2](#accessors--no-getters-setters) Do not use JavaScript getters/setters as they cause unexpected side effects and are harder to test, maintain, and reason about. Instead, if you do make accessor functions, use `getVal()` and `setVal('hello')`.
-
-    ```javascript
-    // bad
-    class Dragon {
-      get age() {
-        // ...
-      }
-
-      set age(value) {
-        // ...
-      }
-    }
-
-    // good
-    class Dragon {
-      getAge() {
-        // ...
-      }
-
-      setAge(value) {
-        // ...
-      }
-    }
-    ```
 
 ## Closure 
   - [24.1](#avoid--Closure) Avoid closure in functions
