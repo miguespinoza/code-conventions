@@ -15,9 +15,9 @@
   1. [Enums](#enums)
 
 
-## Avoid use of any
-<a name="avoid-any"></a><a name="1.1"></a>
-  - [1.1](#avoid-any) Any should only be used for external libraries that do not have types definitions, 
+## [1](#avoid-any) Avoid use of any
+
+  -  Any should only be used for external libraries that do not have types definitions, 
 
     > Why? Typescript is a great tool, using any defeats the purpose of using it.
 
@@ -33,24 +33,24 @@
 
     ```
 
-## Use nullable operator for optional parameters
-    > It is better for readability
+## [2](#avoid-any) Use nullable operator for optional parameters
+> It is better for readability
 
-    ```typescript
-    // bad
-        type ComponentProps = {
-            id: string | undefined;
-        }
-    // good
-        type ComponentProps = {
-            id?: string;
-        }
+```typescript
+// bad
+    type ComponentProps = {
+        id: string | undefined;
+    }
+// good
+    type ComponentProps = {
+        id?: string;
+    }
 
-    ```
+```
 
 
-## Use Type Aliases to describe shape
-- [2.1](#types) Types aliases are meant to describe the shape of things, use them to describe things like prop  types, return values, as long as the thing you are describing is not behavior based.
+## [3](#avoid-any) Use Type Aliases to describe shape
+- Types aliases are meant to describe the shape of things, use them to describe things like prop  types, return values, as long as the thing you are describing is not behavior based.
 
     ```typescript
     // bad
@@ -70,8 +70,10 @@
 
 **[⬆ back to top](#table-of-contents)**
 
-## Use Interfaces to describe behavior
-- [2.1](#interfaces) Interfaces are used to describe the shape and behavior of a thing. They can be implemented, extended and so on.
+## [4]() Use Interfaces to describe behavior
+- Interfaces are used to describe the shape and behavior of a thing. They can be implemented, extended and so on.
+
+    > Why? Interfaces are meant to be implemented or extended, they do not describe the shape of a thing, or a component
 
     ```typescript
     // bad
@@ -91,27 +93,27 @@
 
 **[⬆ back to top](#table-of-contents)**
 
-## Prefer Optional Chaining Operator
-    ```typescript
-        // bad
-            const a = param?.deep?.object?.property
-        // good
-            const a = param && param.deep && param.deep.object && param.deep.object.property;
-    ```
+## [5]() Prefer Optional Chaining Operator
+```typescript
+    // bad
+        const a = param?.deep?.object?.property
+    // good
+        const a = param && param.deep && param.deep.object && param.deep.object.property;
+```
 **[⬆ back to top](#table-of-contents)**
 
-## Prefer Nullish Coalescing
+## [6]() Prefer Nullish Coalescing
 
-    ```typescript
-        // bad
-            const a = param != null ? param : "default"
-        // good
-            const a = param ?? "default"
-    ```
+```typescript
+    // bad
+        const a = param != null ? param : "default"
+    // good
+        const a = param ?? "default"
+```
 **[⬆ back to top](#table-of-contents)**
 
-## Enums
-- [3.1](#enums) Use enums to define a set of named constants.
+## [7]() Enums
+- [7.1](#enums) Use enums to define a set of named constants.
 
     ```typescript
     // bad
@@ -124,7 +126,7 @@
         }
     ```
 
-- [3.2](#no-display-enum) Never use an enum directly for display purposes.
+- [7.2](#no-display-enum) Never use an enum directly for display purposes.
 
     > Why? Enums are implementation details, their name is subject to change during refactors
 
@@ -135,7 +137,7 @@
         <p> {enumToString(DeviceStatus.AUTOMATIC)} </p>
     ```
 
-- [3.3](#no-enum-differences) Never use a numeric value enum
+- [7.3](#no-enum-differences) Never use a numeric value enum
 
     > Why? numeric enums are very hard to debug and if the definition order changes things will break.
 
@@ -152,7 +154,7 @@
         }
     ```
 
-- [3.4](#no-enum-differences) Never assign an enum value different than the enum name
+- [7.4](#no-enum-differences) Never assign an enum value different than the enum name
 
     > Why? It is going to be very confusing
 
@@ -169,7 +171,7 @@
         }
     ```
 
-- [3.5](#no-enum-differences) Never index an enum by its numeric value
+- [7.5](#no-enum-differences) Never index an enum by its numeric value
 
     > Why? If the enum definition order changes, the code will break
 
@@ -190,7 +192,7 @@
         const offlineValue = DeviceStatus[DeviceStatus.OFFLINE]
     ```
 
-- [3.5](#no-enum-differences) Enum name is PascalCase and enum values UPPERCASE
+- [7.5](#no-enum-differences) Enum name is PascalCase and enum values UPPERCASE
 
     > Why? If the enum definition order changes, the code will break
 
@@ -208,7 +210,7 @@
             OFFLINE: "OFFLINE",
         }
     ```
-- [3.5](#no-typed-values) Use typed values in return functions and variables
+- [7.5](#no-typed-values) Use typed values in return functions and variables
 
     > Why? avoid to mutate the return value
 

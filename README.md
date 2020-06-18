@@ -5,7 +5,6 @@
 ## Other Style Guides
   - [Typescript](typescript/)
   - [React](react/)
-  - [Styles](react/styles/)
   - [Code Format](codeFormat/)
 
 ## Table of Contents
@@ -18,7 +17,6 @@
   1. [Arrow Functions](#arrow-functions)
   1. [Classes & Constructors](#classes--constructors)
   1. [Modules](#modules)
-  1. [Properties](#properties)
   1. [Variables](#variables)
   1. [Blocks](#blocks)
   1. [Control Statements](#control-statements)
@@ -31,7 +29,7 @@
 ## Objects
 
   <a name="objects--quoted-props"></a><a name="3.8"></a>
-  - [3.6](#objects--quoted-props) Only quote properties that are invalid identifiers. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
+  - [1.1](#objects--quoted-props) Only quote properties that are invalid identifiers. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
 
     > Why? In general we consider it subjectively easier to read. It improves syntax highlighting, and is also more easily optimized by many JS engines.
 
@@ -52,7 +50,7 @@
     ```
 
   <a name="objects--rest-spread"></a>
-  - [3.8](#objects--rest-spread) Prefer the object spread operator over [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to shallow-copy objects. Use the object rest operator to get a new object with certain properties omitted.
+  - [1.2](#objects--rest-spread) Prefer the object spread operator over [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to shallow-copy objects. Use the object rest operator to get a new object with certain properties omitted.
 
     ```javascript
     // very bad
@@ -71,11 +69,43 @@
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
     ```
 
+    <a name="properties--dot"></a><a name="12.1"></a>
+  - [1.3](#properties--dot) Use dot notation when accessing properties. eslint: [`dot-notation`](https://eslint.org/docs/rules/dot-notation.html)
+
+    ```javascript
+    const luke = {
+      jedi: true,
+      age: 28,
+    };
+
+    // bad
+    const isJedi = luke['jedi'];
+
+    // good
+    const isJedi = luke.jedi;
+    ```
+
+  <a name="properties--bracket"></a><a name="12.2"></a>
+  - [1.4](#properties--bracket) Use bracket notation `[]` when accessing properties with a variable.
+
+    ```javascript
+    const luke = {
+      jedi: true,
+      age: 28,
+    };
+
+    function getProp(prop) {
+      return luke[prop];
+    }
+
+    const isJedi = getProp('jedi');
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Arrays
   <a name="es6-array-spreads"></a><a name="4.3"></a>
-  - [4.3](#es6-array-spreads) Use array spreads `...` to copy arrays.
+  - [2.1](#es6-array-spreads) Use array spreads `...` to copy arrays.
 
     ```javascript
     // bad
@@ -92,7 +122,7 @@
     ```
 
   <a name="es6-array-spreads"></a><a name="4.4"></a>
-  - [4.3](#prefer-map) Use map to transform an array
+  - [2.2](#prefer-map) Use map to transform an array
 
     > Why? easier to understand what the code is doing
 
@@ -109,7 +139,7 @@
     ```
 
     <a name="es6-array-spreads"></a><a name="4.4"></a>
-  - [4.3](#prefer-filter) Use filter to filter an array
+  - [2.3](#prefer-filter) Use filter to filter an array
 
     > Why? easier to understand what the code is doing
 
@@ -128,7 +158,7 @@
 
 
   <a name="es6-array-spreads"></a><a name="4.4"></a>
-  - [4.3](#prefer-foreach) Use forEach to traverse an array, .
+  - [2.4](#prefer-foreach) Use forEach to traverse an array, .
 
     > Why? easier to understand what the code is doing and avoid index typos
 
@@ -148,7 +178,7 @@
 ## Destructuring
 
   <a name="destructuring--object"></a><a name="5.1"></a>
-  - [5.1](#destructuring--object) Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - [3.1](#destructuring--object) Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     > Why? Destructuring saves you from creating temporary references for those properties.
 
@@ -174,7 +204,7 @@
     ```
 
   <a name="destructuring--array"></a><a name="5.2"></a>
-  - [5.2](#destructuring--array) Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - [3.2](#destructuring--array) Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     ```javascript
     const arr = [1, 2, 3, 4];
@@ -191,7 +221,7 @@
 
 ## Strings
   <a name="es6-template-literals"></a><a name="6.4"></a>
-  - [6.3](#es6-template-literals) Avoid String Concatenation, use template. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
+  - [4.1](#es6-template-literals) Avoid String Concatenation, use template. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
 
     > Why? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
 
@@ -210,7 +240,7 @@
 
 ## Functions
   <a name="es6-default-parameters"></a><a name="7.7"></a>
-  - [7.7](#es6-default-parameters) Functions name must do only one thing and include a verb in the name that indicates what they do.
+  - [5.1](#es6-default-parameters) Functions name must do only one thing and include a verb in the name that indicates what they do.
 
     ```javascript
     // really bad
@@ -237,7 +267,7 @@
     ```
 
   <a name="es6-default-parameters"></a><a name="7.7"></a>
-  - [7.7](#es6-default-parameters) Use default parameter syntax rather than mutating function arguments.
+  - [5.2](#es6-default-parameters) Use default parameter syntax rather than mutating function arguments.
 
     ```javascript
     // really bad
@@ -264,7 +294,7 @@
     ```
 
   <a name="functions--defaults-last"></a><a name="7.9"></a>
-  - [7.9](#functions--defaults-last) Always put default parameters last.
+  - [5.3](#functions--defaults-last) Always put default parameters last.
 
     ```javascript
     // bad
@@ -279,7 +309,7 @@
     ```
 
   <a name="functions--mutate-params"></a><a name="7.12"></a>
-  - [7.12](#functions--mutate-params) Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - [5.4](#functions--mutate-params) Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
     > Why? Manipulating objects passed in as parameters can cause unwanted variable side effects in the original caller.
 
@@ -296,7 +326,7 @@
     ```
 
   <a name="functions--reassign-params"></a><a name="7.13"></a>
-  - [7.13](#functions--reassign-params) Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - [5.5](#functions--reassign-params) Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
     > Why? Reassigning parameters can lead to unexpected behavior, especially when accessing the `arguments` object. It can also cause optimization issues, especially in V8.
 
@@ -328,7 +358,7 @@
 ## Arrow Functions
 
   <a name="arrows--use-them"></a><a name="8.1"></a>
-  - [8.1](#arrows--use-them) When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
+  - [6.1](#arrows--use-them) When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
 
     > Why? It creates a version of the function that executes in the context of `this`, which is usually what you want, and is a more concise syntax.
 
@@ -348,15 +378,26 @@
     });
     ```
 
-  
+  <a name="arrows--use-them"></a><a name="8.1"></a>
+  - [6.2](#arrows--implicit-return) Use implicit return for one liners
+
+    ```javascript
+    // bad
+    [1, 2, 3].map(function (x) {
+      const y = x + 1;
+      return x * y;
+    });
+
+    // good
+    [1, 2, 3].map((x) => x * (x + 1));
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Classes & Constructors
 
-
   <a name="constructors--chaining"></a><a name="9.3"></a>
-  - [9.3](#constructors) Use class syntax, no prototype manipulation
+  - [7.1](#constructors) Use class syntax, no prototype manipulation
 
 
 **[⬆ back to top](#table-of-contents)**
@@ -365,7 +406,7 @@
 
 
   <a name="modules--prefer-default-export"></a>
-  - [10.6](#modules--prefer-default-export) In modules with a single export, prefer default export over named export.
+  - [8.1](#modules--prefer-default-export) In modules with a single export, prefer default export over named export.
  eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
     > Why? To encourage more files that only ever export one thing, which is better for readability and maintainability.
 
@@ -378,7 +419,7 @@
     ```
 
   <a name="modules--prefer-default-export"></a>
-  - [10.6](#modules--prefer-default-export) File name must be exactly the same as the default export
+  - [8.2](#modules--prefer-default-export) File name must be exactly the same as the default export
     > Why? Much better code navigation and consistency;
 
     ```javascript
@@ -389,7 +430,7 @@
     export default function foo() {}
     ```
   <a name="modules--prefer-absolute-path"></a>
-  - [10.6](#modules--prefer-absolute-path) Use Absolute path to import modules when they are higher in the file structure
+  - [8.3](#modules--prefer-absolute-path) Use Absolute path to import modules when they are higher in the file structure
     > Why? Following `../../../` becomes hard pretty quickly.
 
     This requires configuration in your build tools, for typescript add `"baseUrl": "./src"` to your `tsconfig.json` file
@@ -411,47 +452,10 @@
 
 **[⬆ back to top](#table-of-contents)**
 
-
-## Properties
-
-  <a name="properties--dot"></a><a name="12.1"></a>
-  - [12.1](#properties--dot) Use dot notation when accessing properties. eslint: [`dot-notation`](https://eslint.org/docs/rules/dot-notation.html)
-
-    ```javascript
-    const luke = {
-      jedi: true,
-      age: 28,
-    };
-
-    // bad
-    const isJedi = luke['jedi'];
-
-    // good
-    const isJedi = luke.jedi;
-    ```
-
-  <a name="properties--bracket"></a><a name="12.2"></a>
-  - [12.2](#properties--bracket) Use bracket notation `[]` when accessing properties with a variable.
-
-    ```javascript
-    const luke = {
-      jedi: true,
-      age: 28,
-    };
-
-    function getProp(prop) {
-      return luke[prop];
-    }
-
-    const isJedi = getProp('jedi');
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
 ## Variables
 
   <a name="variables--const"></a><a name="13.1"></a>
-  - [13.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const) [`no-var`](https://eslint.org/docs/rules/no-var.html)
+  - [9.1](#variables--const) Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace.
  
     ```javascript
     // bad
@@ -462,7 +466,7 @@
     ```
 
   <a name="variables--one-const"></a><a name="13.2"></a>
-  - [13.2](#variables--one-const) Use one `const` or `let` declaration per variable or assignment. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
+  - [9.2](#variables--one-const) Use one `const` or `let` declaration per variable or assignment. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
 
     > Why? It’s easier to add new variable declarations this way, and you never have to worry about swapping out a `;` for a `,` or introducing punctuation-only diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once.
 
@@ -486,7 +490,7 @@
 
 
 <a name="variables--no-unused-vars"></a>
-  - [13.8](#variables--no-unused-vars) Disallow unused variables. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
+  - [9.3](#variables--no-unused-vars) Disallow unused variables. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
 
     > Why? Variables that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring. Such variables take up space in the code and can lead to confusion by readers.
 
@@ -530,10 +534,10 @@
 ## Comparison Operators & Equality
 
   <a name="comparison--eqeqeq"></a><a name="15.1"></a>
-  - [15.1](#comparison--eqeqeq) Use `===` and `!==` over `==` and `!=`. eslint: [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq.html)
+  - [10.1](#comparison--eqeqeq) Use `===` and `!==` over `==` and `!=`. eslint: [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq.html)
 
   <a name="comparison--if"></a><a name="15.2"></a>
-  - [15.2](#comparison--if) Conditional statements such as the `if` statement evaluate their expression using coercion with the `ToBoolean` abstract method and always follow these simple rules:
+  - [10.2](#comparison--if) Conditional statements such as the `if` statement evaluate their expression using coercion with the `ToBoolean` abstract method and always follow these simple rules:
 
     - **Objects** evaluate to **true**
     - **Undefined** evaluates to **false**
@@ -550,7 +554,7 @@
     ```
 
   <a name="comparison--shortcuts"></a><a name="15.3"></a>
-  - [15.3](#comparison--shortcuts) Use shortcuts for booleans, but explicit comparisons for strings and numbers.
+  - [10.3](#comparison--shortcuts) Use shortcuts for booleans, but explicit comparisons for strings and numbers.
 
     ```javascript
     // bad
@@ -584,11 +588,8 @@
     }
     ```
 
-  <a name="comparison--moreinfo"></a><a name="15.4"></a>
-  - [15.4](#comparison--moreinfo) For more information see [Truth Equality and JavaScript](https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108) by Angus Croll.
-
   <a name="comparison--switch-blocks"></a><a name="15.5"></a>
-  - [15.5](#comparison--switch-blocks) Use braces to create blocks in `case` and `default` clauses that contain lexical declarations (e.g. `let`, `const`, `function`, and `class`). eslint: [`no-case-declarations`](https://eslint.org/docs/rules/no-case-declarations.html)
+  - [10.4](#comparison--switch-blocks) Use braces to create blocks in `case` and `default` clauses that contain lexical declarations (e.g. `let`, `const`, `function`, and `class`). eslint: [`no-case-declarations`](https://eslint.org/docs/rules/no-case-declarations.html)
 
     > Why? Lexical declarations are visible in the entire `switch` block but only get initialized when assigned, which only happens when its `case` is reached. This causes problems when multiple `case` clauses attempt to define the same thing.
 
@@ -636,7 +637,7 @@
     ```
 
   <a name="comparison--nested-ternaries"></a><a name="15.6"></a>
-  - [15.6](#comparison--nested-ternaries) Ternaries should not be nested and generally be single line expressions. eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.html)
+  - [10.5](#comparison--nested-ternaries) Ternaries should not be nested and generally be single line expressions. eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.html)
 
     ```javascript
     // bad
@@ -661,7 +662,7 @@
 ## Blocks
 
   <a name="blocks--braces"></a><a name="16.1"></a>
-  - [16.1](#blocks--braces) Use braces with all multiline blocks. eslint: [`nonblock-statement-body-position`](https://eslint.org/docs/rules/nonblock-statement-body-position)
+  - [11.1](#blocks--braces) Use braces with all multiline blocks.
 
     ```javascript
     // bad
@@ -694,7 +695,7 @@
 
 
   <a name="control-statement--value-selection"></a><a name="control-statements--value-selection"></a>
-  - [17.2](#control-statements--value-selection) Don't use selection operators in place of control statements.
+  - [12.1](#control-statements--value-selection) Don't use selection operators in place of control statements.
 
     ```javascript
     // bad
@@ -712,7 +713,7 @@
 ## Naming Conventions
 
   <a name="naming--camelCase"></a><a name="22.2"></a>
-  - [23.2](#naming--camelCase) Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
+  - [13.1](#naming--camelCase) Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
     ```javascript
     // bad
@@ -726,7 +727,7 @@
     ```
 
   <a name="naming--PascalCase"></a><a name="22.3"></a>
-  - [23.3](#naming--PascalCase) Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
+  - [13.2](#naming--PascalCase) Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
 
     ```javascript
     // bad
@@ -751,7 +752,7 @@
     ```
 
   <a name="naming--filename-matches-export"></a><a name="22.6"></a>
-  - [23.6](#naming--filename-matches-export) A base filename should exactly match the name of its default export.
+  - [13.4](#naming--filename-matches-export) A base filename should exactly match the name of its default export.
 
     ```javascript
     // file CheckBox.js contents
@@ -762,7 +763,7 @@
     ```
 
   <a name="naming--camelCase-default-export"></a><a name="22.7"></a>
-  - [23.7](#naming--camelCase-default-export) Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
+  - [13.5](#naming--camelCase-default-export) Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
 
     ```javascript
     function makeStyleGuide() {
@@ -773,7 +774,7 @@
     ```
 
   <a name="naming--PascalCase-singleton"></a><a name="22.8"></a>
-  - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
+  - [13.6](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
 
     ```javascript
     const HtsStyleGuide = {
@@ -782,26 +783,6 @@
     };
 
     export default HtsStyleGuide;
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
-## Closure 
-  - [24.1](#avoid--Closure) Avoid closure in functions
-
-
-    ```javascript
-    /// bad
-     const someFilter = () =>{
-      return ["pikachu","mario","peach"].filter((x)=> x === "peach");
-     }
-
-    // good
-    const filterValue = (value) => value === "peach";  
-
-    const someFilter = () => {
-      return ["pikachu","mario","peach"].filter(filterValue);
-   }
     ```
 
 **[⬆ back to top](#table-of-contents)**
