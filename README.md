@@ -177,7 +177,7 @@
 
 ## Destructuring
 
-  <a name="destructuring--object"></a><a name="5.1"></a>
+  <a name="destructuring--object"></a><a name="3.1"></a>
   - [3.1](#destructuring--object) Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     > Why? Destructuring saves you from creating temporary references for those properties.
@@ -203,7 +203,7 @@
     }
     ```
 
-  <a name="destructuring--array"></a><a name="5.2"></a>
+  <a name="destructuring--array"></a><a name="3.2"></a>
   - [3.2](#destructuring--array) Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     ```javascript
@@ -215,6 +215,20 @@
 
     // good
     const [first, second] = arr;
+    ```
+  <a name="destructuring--simple"></a><a name="3.3"></a>
+  - [3.3](#destructuring--simple) Keep destructuring simple, avoid renaming, transforming or default objects. 
+
+    > Why? When you do too much of these it gets very hard to understand
+
+    ```javascript
+    const user = {name: "Pedro", address: { zip: 3432, street: "street 1", state: "WA" }};
+
+    // bad
+    const {name: nickname = "Nick", address: {zip: postalCode}} = user;
+
+    // good
+    const {name: nickname = "Nick", address: {zip: postalCode}} = user;
     ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -239,6 +253,8 @@
 **[⬆ back to top](#table-of-contents)**
 
 ## Functions
+  > ⚠ We prefer the use of Arrow functions over functions
+
   <a name="es6-default-parameters"></a><a name="7.7"></a>
   - [5.1](#es6-default-parameters) Functions name must do only one thing and include a verb in the name that indicates what they do.
 
@@ -433,7 +449,7 @@
   - [8.3](#modules--prefer-absolute-path) Use Absolute path to import modules when they are higher in the file structure
     > Why? Following `../../../` becomes hard pretty quickly.
 
-    This requires configuration in your build tools, for typescript add `"baseUrl": "./src"` to your `tsconfig.json` file
+    This requires configuration in your build tools, for typescript add `"baseUrl": "./src"` to your `tsconfig.json` file, also requires configuration changes in projects that use babel and webpack.
 
     ```javascript
     // bad

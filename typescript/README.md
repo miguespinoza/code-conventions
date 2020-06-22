@@ -96,9 +96,10 @@
 ## [5]() Prefer Optional Chaining Operator
 ```typescript
     // bad
-        const a = param?.deep?.object?.property
-    // good
         const a = param && param.deep && param.deep.object && param.deep.object.property;
+
+    // good
+        const a = param?.deep?.object?.property;
 ```
 **[⬆ back to top](#table-of-contents)**
 
@@ -143,12 +144,12 @@
 
     ```typescript
     // bad
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE,
             OFFLINE,
         }
     // good
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE: "ONLINE",
             OFFLINE: "OFFLINE",
         }
@@ -160,12 +161,12 @@
 
     ```typescript
     // bad
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE: "offline",
             OFFLINE: "online",
         }
     // good
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE: "ONLINE",
             OFFLINE: "OFFLINE",
         }
@@ -177,7 +178,7 @@
 
     ```typescript
     // bad
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE,
             OFFLINE,
         }
@@ -185,7 +186,7 @@
 
 
     // good
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE,
             OFFLINE,
         }
@@ -198,31 +199,49 @@
 
     ```typescript
     // bad
-        type DeviceStatus = {
+        enum DeviceStatus = {
             online: "ONLINE",
             offline: "OFFLINE",
         }
 
 
     // good
-        type DeviceStatus = {
+        enum DeviceStatus = {
             ONLINE: "ONLINE",
             OFFLINE: "OFFLINE",
         }
     ```
-- [7.5](#no-typed-values) Use typed values in return functions and variables
 
-    > Why? avoid to mutate the return value
+- [7.6](#no-enum-differences) Enum name is PascalCase and singular
 
     ```typescript
     // bad
-       const someString = () => "";
-       const someVariableString = "";
+        enum DeviceStatuses = {
+            online: "ONLINE",
+            offline: "OFFLINE",
+        }
+
 
     // good
-       const someString:string = () => "";
-       const someVariableString:string = "";
+        enum DeviceStatus = {
+            ONLINE: "ONLINE",
+            OFFLINE: "OFFLINE",
+        }
     ```
+
+##[8](#no-typed-values) Use typed values in return functions and variables
+
+> Why? avoid to mutate the return value
+
+```typescript
+// bad
+    const someString = () => "";
+    const someVariableString = "";
+
+// good
+    const someString:string = () => "";
+    const someVariableString:string = "";
+```
 **[⬆ back to top](#table-of-contents)**
 
 # };

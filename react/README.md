@@ -25,17 +25,18 @@ This style guide is mostly based on the standards that are currently prevalent i
 
 ## Folder structure
 
-  We must differentiate between <b>Momentum UI Components</b> and <b>React Components</b>. Both use react to render DOM however: 
-  - <b>Momentum Components</b> [Docs](http://10.41.60.122/master/framework/docs/index.html#/Framework/Composition) Use a Model View View Model architecture, and are rendered by the framework using the catalog config.
-  - <b>React Components</b> [Docs](https://en.reactjs.org/docs/components-and-props.html): Are the traditional react components, You can leverage all the react features (hooks, context, etc.) to build your components. But have in mind they can't be rendered directly by the framework, if your component needs to be rendered by the `shell` or the framework it must be a <b>Momentum Component.</b>
+  We must differentiate between **Momentum UI Components** and **React Components**. Both use react to render DOM however: 
+  - **Momentum Components** [Docs](http://10.41.60.122/master/framework/docs/index.html#/Framework/Composition) Use a Model View View Model architecture, and are rendered by the framework using the catalog config.
+  - **React Components** [Docs](https://en.reactjs.org/docs/components-and-props.html): Are the traditional react components, You can leverage all the react features (hooks, context, etc.) to build your components. But have in mind they can't be rendered directly by the framework, if your component needs to be rendered by the `shell` or the framework it must be a **Momentum Component.**
 
 
   ### General Structure
   Applications will follow the general momentum-ui folder structure documented [here](http://10.41.60.122/master/framework/docs/index.html), 
   
-  - <b>Momentum Components</b>: will be placed inside `src/catalog`
-  - <b>React Components</b>: that are reusable across the whole application will be placed inside `src/partials`
-  - <b>React Components</b>: That are only meant to be used inside a certain part of the app will be placed in the `partials` folder of the bounding component.
+  - **Momentum Components**: will be placed inside `src/catalog`
+  - **React Components**: that are reusable across the whole application will be placed inside `src/partials`
+  - **React Components**: That are only meant to be used inside a certain part of the app will be placed in the `partials` folder of the bounding component.
+  - **Global Types** Type definitions that are global to the application belong to `src/types`, They can be used anywhere in the application.
 
   ### Services
 
@@ -74,7 +75,7 @@ This style guide is mostly based on the standards that are currently prevalent i
   
   On the contrary when the sub components are not suited to be reused outside of this component. (Maybe it doesn't make sense or they require access to a context). They must be placed on the component partials folder.
  
-  <b>A component can only use components from `src/partials` and its own `./partials`.</b>
+  **A component can only use components from `src/partials` and its own `./partials`.**
 
 
 ## Naming
@@ -344,7 +345,7 @@ This style guide is mostly based on the standards that are currently prevalent i
     }
     ```
 
-- <b>mobx</b>, if you need to use Mobx observables and Context, <b>Wrap context render result in an `<Observer>` component</b>
+- **mobx**, if you need to use Mobx observables and Context, **Wrap context render result in an `<Observer>` component**
 
   >Why? Mobx observables only work within an observer, and the context render prop is not one.
 
