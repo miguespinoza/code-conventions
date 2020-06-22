@@ -56,16 +56,18 @@ This style guide is mostly based on the standards that are currently prevalent i
   A React Component has the following file structure:
   ```
       ComponentName
-      │   ComponentName.spec.tsx
-      |   ComponentName.module.scss
       │   ComponentName.tsx    
+      |   ComponentName.module.scss
+      │   ComponentName.spec.tsx
+      |   ComponentNameTypes.ts
       └───partials
       │   │   ...
   ```
   - A parent folder with the same name as the component,
-  - The component file, must have the same name as the component, and export default the component class or function
-  - SASS styles file, All the classes used by this component must be defined in this file, i.e. no import from other style files.
-  - Unit Test file
+  - **ComponentName.tsx**, Must have the same name as the component, and export default the component class or function
+  - **ComponentName.module.scss** SASS styles file, All the classes used by this component must be defined in this file, i.e. no import from other style files.
+  - **ComponentName.spec.tsx** Unit Test file
+  - **ComponentNameTypes.ts** Exports the type definition meant to be used by this component or their partials components
 
   #### Partials Folder
   <a name="#partials-folder"></a>
